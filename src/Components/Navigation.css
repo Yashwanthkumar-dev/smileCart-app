@@ -1,0 +1,24 @@
+.about,
+.products,
+.contact {
+  position: relative;
+}
+.about::after,
+.products::after,
+.contact::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0px;
+  border-top: 3px solid green;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+.about:hover::after,
+.products:hover::after,
+.contact:hover::after {
+  transform: scaleX(20px);
+  width: 100%;
+}
+
+
