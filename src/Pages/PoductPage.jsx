@@ -43,9 +43,9 @@ const PoductPage = () => {
     <div className="bg-green-50/10 mt-4 mb-10">
       <div className=" mx-16 ">
         <div className=" grid grid-cols-3 gap-8 gap-y-11 p-2 ">
-          {products.map((items, index) => (
+          {products.map((items) => (
             <div
-              key={index}
+              key={items.id}
               className="shadow-md rounded-xl overflow-hidden p-3 hover:shadow-xl duration-300"
             >
               <div className="overflow-hidden rounded-lg">

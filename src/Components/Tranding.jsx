@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import productData from "../Data/ProductData";
 import { motion } from "framer-motion";
+import { getAllProducts } from "../Api/productApi";
 const Tranding = () => {
-  const product = productData.filter((trendingItems) => {
-    return trendingItems.isTrending;
-  });
+  const [product, setProduct] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const product = await getAllProducts();
+
+        setProduct(product);
+      } catch (error) {
+        throw new error;
+      }
+    };
+    fetchData();
+  }, []);
+  const items = product.filter((trending) => trending.trending === true);
+
   const ContainerVariants = {
     hidden: {},
     show: {
@@ -46,28 +59,38 @@ const Tranding = () => {
           viewport={{ once: true }}
           className="grid grid-cols-4 mx-24 gap-3 gap-y-8 "
         >
-          {product.map((items) => (
+          {items.map((product) => (
             <motion.div
-            variants ={cardVariants}
-              transition={{duration:0.5}}
-              key={items.id}
-              className="rounded-lg shadow pb-7 w-[305px] hover:scale-105 hover:shadow-lg hover:-mt-3 duration-500 bg-white"
+              variants={cardVariants}
+              transition={{ duration: 0.5 }}
+              key={product.id}
+              className="rounded-lg shadow pb-5 w-[305px] hover:scale-105 hover:shadow-lg hover:-mt-3 duration-500 bg-white"
             >
-              <div className=" h-40 rounded-t-lg">
-                <i
+              <div className="  rounded-t-lg">
+                {/* <i
                   className={` bg-gradient-to-br ${items.color} flex  flex-col rounded-t-lg items-center py-20 text-4xl h-48 border`}
                 >
-                  {items.icon}
-                </i>
+                  {product.icon}
+                </i> */}
+                <img
+                  src={`data:${product.imageType};base64,${product.imageData}`}
+                  alt={product.productName}
+                  className="h-[300px] w-[310px] object-cover"
+                />
               </div>
-              <div className=" ml-8 mt-12">
+              <div className=" ml-8 mt-6">
                 <h1 className="font-poppins font-semibold capitalize text-gray-600 tracking-wide text-xl">
-                  {items.name}
+                  {product.productName}
                 </h1>
               </div>
               <div className=" ml-8 mt-2 mr-2">
                 <p className="font-poppins font-medium text-[13px] capitalize text-gray-400 tracking-wide">
-                  {items.description}
+                  {product.productDescription}
+                </p>
+              </div>
+              <div>
+                <p className="font-poppins text-[16px] ml-8 mt-3 font-semibold tracking-wide text-green-500">
+                  ₹ {product.productPrice}
                 </p>
               </div>
             </motion.div>
