@@ -1,32 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import productData from "../Data/ProductData";
+import { getAllProductByCategory } from "../Api/Api";
 
 const CategoryProduct = () => {
-  const { id } = useParams();
+  const { categoryId } = useParams();
 
-  const filteredCategoryProduct = productData.filter(
-    (items) => items.categoryId === Number(id)
-  );
+  const [allCategory, setAllCategory] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const getAllCategory = await getAllProductByCategory(categoryId);
+        setLoading(true);
+        setAllCategory(getAllCategory);
+        setLoading(false);
+        console.log(getAllCategory);
+      } catch (error) {
+        console.log("error message category:" + error);
+        setLoading(false);
+        setAllCategory([]);
+      }
+      fetchCategory();
+    };
+  }, [categoryId]);
+if(loading === false){
+  return(
+    <div className="text-center">
+      <h1 className="text-center text-2xl font-poppins font-semiBold ">Product loading...</h1>
+    </div>
+  )
+}
 
   return (
-    <div className="min-h-[660px] px-10 mt-8">
-      {filteredCategoryProduct.length === 0 ? (
-        <div className="flex justify-center items-center mt-20">
+    <div className=" px-10 mt-8">
+      {allCategory.length === 0 ? (
+        <div className="flex justify-center items-center mt-2 mb-7">
           <h1 className="text-3xl font-poppins text-red-600 font-medium uppercase">
             Product was not found
           </h1>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {filteredCategoryProduct.map((product) => (
+          {allCategory.map((product) => (
             <div
               key={product.id}
               className="shadow-md rounded-xl p-3 hover:shadow-xl duration-300"
             >
               <div className="overflow-hidden rounded-lg">
                 <img
-                  src={product.productImage}
+                  src={`data:${product.product.imageType};base64,${product.product.imageData}`}
                   alt={product.name}
                   className="w-full h-[350px] object-cover hover:scale-110 duration-700"
                 />

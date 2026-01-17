@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import productData from "../Data/ProductData";
 import { motion } from "framer-motion";
-import { getAllProducts } from "../Api/productApi";
+import { getAllProducts } from "../Api/Api";
 const Tranding = () => {
   const [product, setProduct] = useState([]);
   useEffect(() => {

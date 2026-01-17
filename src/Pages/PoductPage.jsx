@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllProducts } from "../Api/productApi";
+import { addToCart, getAllProducts } from "../Api/Api";
 // import productData from "../Data/ProductData";
 const PoductPage = () => {
   // const allProduct = productData;
@@ -7,14 +7,13 @@ const PoductPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
-
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const data = await getAllProducts();
         console.log(data[0]);
         console.log(data[0].imageData);
-        
+
         setProducts(data);
       } catch (err) {
         setError("Failed to load api");
@@ -35,8 +34,8 @@ const PoductPage = () => {
     );
   if (error)
     return (
-      <div>
-        <h1>{error}</h1>
+      <div className="bg-green-100/50">
+        <h1 className="text-4xl font-poppins font-medium text-center capitalize text-amber-800 h-lvh flex items-center w-fit mx-auto">{error}</h1>
       </div>
     );
   return (
@@ -61,11 +60,22 @@ const PoductPage = () => {
               <p className="font-poppins pl-9 text-gray-400 mt-2 text-lg">
                 ₹ {items.productPrice}
               </p>
-              <p className="font-poppins pl-9 text-green-600 capitalize mt-2 font-medium  tracking-wide mb-5">
+              <p className="font-poppins pl-9 text-green-600 capitalize mt-2 w-[400px] truncate font-medium  tracking-wide mb-5">
                 {items.productDescription}
               </p>
               <div className="ml- mb-3">
-                <button className="border w-full font-poppins font-medium text-white bg-amber-400  capitalize px-5 rounded py-2 hover:bg-amber-500 duration-500">
+                <button
+                  className="border outline-none w-full font-poppins font-medium text-white bg-amber-400  capitalize px-5 rounded py-2 hover:bg-amber-500 duration-500"
+                  onClick={async () => {
+                    try {
+                      const product = items.id;
+                      const quantity = 1;
+                      const res = await addToCart(product, quantity);
+                    } catch (error) {
+                      alert("Failed to add product");
+                    }
+                  }}
+                >
                   add to cart
                 </button>
               </div>
