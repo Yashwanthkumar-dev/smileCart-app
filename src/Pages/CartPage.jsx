@@ -26,7 +26,7 @@ function CartPage() {
   const handleALLCartDelete = async () => {
     await deleteAllCarts();
     setAllCart([]);
-    alert("ALl Carts are removed successfully");
+
   };
   return (
     <>
@@ -35,7 +35,7 @@ function CartPage() {
           All Carts
         </h1>
         <button
-          className="px-4 py-2 bg-amber-700 text-white font-poppins font-semibold capitalize rounded-lg text-center ml-[16px] mt-[10px] hover:bg-amber-900 duration-500"
+          className="px-4 py-2 bg-amber-700 outline-none text-white font-poppins font-semibold capitalize rounded-lg text-center ml-[16px] mt-[10px] hover:bg-amber-900 duration-500"
           onClick={handleALLCartDelete}
         >
           remove all

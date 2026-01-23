@@ -41,8 +41,13 @@ export const addToCart = async (productId, quantity) => {
 // get all carts
 
 export const allCartProducts = async () => {
+  const token = localStorage.getItem("token"); //
   try {
-    const res = await axios.get(`${BASEURL}/cart`);
+    const res = await axios.get(`${BASEURL}/cart`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     return res.data;
   } catch (error) {
     throw error;
@@ -52,22 +57,24 @@ export const allCartProducts = async () => {
 // delete single cart
 
 export const deleteCartById = async (cartId) => {
+  const token = localStorage.getItem("token");
   try {
-    const res = await axios.delete(`${BASEURL}/cart/${cartId}`);
+    const res = await axios.delete(`${BASEURL}/cart/delete/${cartId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
     return res.data;
-  } catch (error) {
-    throw error;
-  }
+  } catch (error) { throw error; }
 };
 
 // delete all carts
 export const deleteAllCarts = async () => {
+  const token = localStorage.getItem("token");
   try {
-    const res = await axios.delete(`${BASEURL}/cart/delete`);
+    const res = await axios.delete(`${BASEURL}/cart`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
     return res;
-  } catch (error) {
-    throw error;
-  }
+  } catch (error) { throw error; }
 };
 // --------------------------------------------------- category --------------------------
 
