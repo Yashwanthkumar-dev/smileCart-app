@@ -16,7 +16,7 @@ const Navigation = () => {
             }}
           >
             <h1 className="font-poppins text-2xl font-semibold">
-              <Link to="/">smileCart</Link>
+              <Link to="/home-page">smileCart</Link>
             </h1>
           </motion.div>
 
