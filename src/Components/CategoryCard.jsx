@@ -1,5 +1,4 @@
 import { PiTargetBold } from "react-icons/pi";
-import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";

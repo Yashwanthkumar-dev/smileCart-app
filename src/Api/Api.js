@@ -82,7 +82,7 @@ export const deleteAllCarts = async () => {
 
 export const getAllProductByCategory = async (categoryId) => {
   try {
-    const res = await axios.get(`${BASEURL}/product/category/${categoryId}`);
+    const res = await axios.get(`${BASEURL}/category/category/${categoryId}`);
     return res.data;
   } catch (error) {
     throw error;
@@ -141,4 +141,12 @@ export const placeOrder = async () => {
     } catch (error) {
         throw error;
     }
+};
+
+
+export const getMyOrders = async () => {
+    const res = await axios.get(`${BASEURL}/order/my-orders`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    });
+    return res.data;
 };

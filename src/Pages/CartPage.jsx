@@ -1,24 +1,31 @@
 import { useEffect, useState } from "react";
-import {allCartProducts, deleteAllCarts, deleteCartById, placeOrder} from "../Api/Api";
+import {
+  allCartProducts,
+  deleteAllCarts,
+  deleteCartById,
+  placeOrder,
+} from "../Api/Api";
 
 function CartPage() {
   const [allCart, setAllCart] = useState([]);
-
-  const handlePlaceOrder =async()=>{
+  const totalProductPrice = allCart.reduce((acc, items) => {
+    return acc + items.product.productPrice * items.quantity;
+  }, 0);
+  const handlePlaceOrder = async () => {
     try {
       const res = await placeOrder();
-      if(res.status === 201 || res.status===200 ){
-        alert("order have been placed successfully" );
+      if (res.status === 201 || res.status === 200) {
+        alert("order have been placed successfully");
         window.location.reload();
       }
-    }catch(error){
+    } catch (error) {
       alert("order was not placed ");
     }
-  }
+  };
 
   useEffect(() => {
     try {
-      const fetchCart = async () => ~{
+      const fetchCart = async () => {
         const carts = await allCartProducts();
         console.log(carts);
         const filterCarts = carts.filter((c) => c.product !== null);
@@ -38,7 +45,6 @@ function CartPage() {
   const handleALLCartDelete = async () => {
     await deleteAllCarts();
     setAllCart([]);
-
   };
   return (
     <>
@@ -47,21 +53,34 @@ function CartPage() {
           All Carts
         </h1>
         <div className="flex items-center gap-3">
-        <button
-          className="px-4 py-2 bg-amber-700 outline-none text-white font-poppins font-semibold capitalize rounded-lg text-center ml-[16px]  hover:bg-amber-900 duration-500"
-          onClick={handleALLCartDelete}
-        >
-          remove all
-        </button>
           <button
-              onClick={handlePlaceOrder}
-              disabled={allCart.length === 0}
-              className={`text-lg font-medium font-poppins capitalize px-3 py-1.5 rounded-lg text-white ${
-                  allCart.length === 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-amber-600 hover:bg-amber-700'
-              }`}
+            className="px-4 py-2 bg-amber-700 outline-none text-white font-poppins font-semibold capitalize rounded-lg text-center ml-[16px]  hover:bg-amber-900 duration-500"
+            onClick={handleALLCartDelete}
+          >
+            remove all
+          </button>
+          <button
+            onClick={handlePlaceOrder}
+            disabled={allCart.length === 0}
+            className={`text-lg font-medium font-poppins capitalize px-3 py-1.5 rounded-lg text-white ${
+              allCart.length === 0
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-amber-600 hover:bg-amber-700"
+            }`}
           >
             place order
           </button>
+
+          {allCart.length > 0 && (
+            <div className="flex flex-col items-end">
+              <span className="text-gray-500 text-sm font-poppins uppercase tracking-wider">
+                Total Amount
+              </span>
+              <span className="text-2xl font-bold text-green-600 font-poppins">
+                ₹ {totalProductPrice.toLocaleString()}
+              </span>
+            </div>
+          )}
         </div>
       </div>
       <div className=" mx-16  mb-16">

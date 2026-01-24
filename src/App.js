@@ -11,19 +11,21 @@ import CartPage from "./Pages/CartPage";
 import MainLayout from "./Components/Main";
 import LoginPage from "./Pages/LoginPage";
 import RegistrationPage from "./Pages/RegistrationPage";
+import OrderPage from "./Pages/OrderPage";
 
 const App = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path = "/registration" element={<RegistrationPage/>}/>
+        <Route path="/registration" element={<RegistrationPage />} />
         <Route element={<MainLayout />}>
           <Route path="/home-page" element={<HomePage />} />
           <Route path="/about-us" element={<About />} />
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/Workflow" element={<Workflow />} />
           <Route path="/all-products" element={<PoductPage />} />
+          <Route path="/my-orders" element={<OrderPage />} />
           <Route
             path="/category-product/:categoryId"
             element={<CategoryProduct />}
