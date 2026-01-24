@@ -126,3 +126,19 @@ export const registration = async (userData) => {
     throw error;
   }
 };
+
+
+// ----------------------------------- order page --------------------------
+export const placeOrder = async () => {
+    const token = localStorage.getItem("token");
+    try {
+        const response = await axios.post(`${BASEURL}/order/place`, {}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};

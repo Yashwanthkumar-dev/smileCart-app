@@ -1,12 +1,24 @@
 import { useEffect, useState } from "react";
-import { allCartProducts, deleteAllCarts, deleteCartById } from "../Api/Api";
+import {allCartProducts, deleteAllCarts, deleteCartById, placeOrder} from "../Api/Api";
 
 function CartPage() {
   const [allCart, setAllCart] = useState([]);
 
+  const handlePlaceOrder =async()=>{
+    try {
+      const res = await placeOrder();
+      if(res.status === 201 || res.status===200 ){
+        alert("order have been placed successfully" );
+        window.location.reload();
+      }
+    }catch(error){
+      alert("order was not placed ");
+    }
+  }
+
   useEffect(() => {
     try {
-      const fetchCart = async () => {
+      const fetchCart = async () => ~{
         const carts = await allCartProducts();
         console.log(carts);
         const filterCarts = carts.filter((c) => c.product !== null);
@@ -30,16 +42,27 @@ function CartPage() {
   };
   return (
     <>
-      <div className="mx-16 mt-14 mb-7 flex justify-between items-center">
+      <div className="mx-16 mt-14 mb-7 flex justify-between items-center ">
         <h1 className="text-[38px] text-green-600 font-poppins font-bold tracking-wide ">
           All Carts
         </h1>
+        <div className="flex items-center gap-3">
         <button
-          className="px-4 py-2 bg-amber-700 outline-none text-white font-poppins font-semibold capitalize rounded-lg text-center ml-[16px] mt-[10px] hover:bg-amber-900 duration-500"
+          className="px-4 py-2 bg-amber-700 outline-none text-white font-poppins font-semibold capitalize rounded-lg text-center ml-[16px]  hover:bg-amber-900 duration-500"
           onClick={handleALLCartDelete}
         >
           remove all
         </button>
+          <button
+              onClick={handlePlaceOrder}
+              disabled={allCart.length === 0}
+              className={`text-lg font-medium font-poppins capitalize px-3 py-1.5 rounded-lg text-white ${
+                  allCart.length === 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-amber-600 hover:bg-amber-700'
+              }`}
+          >
+            place order
+          </button>
+        </div>
       </div>
       <div className=" mx-16  mb-16">
         <div>
