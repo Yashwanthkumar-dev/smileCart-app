@@ -25,8 +25,11 @@ const LoginPage = () => {
     try {
       const result = await login(credentials);
       console.log(result);
-
-      navigate("/home-page");
+      if (result.role === "admin") {
+        navigate("/admin/AdminDashboard");
+      } else {
+        navigate("/home-page");
+      }
     } catch (error) {
       setError(true);
     }

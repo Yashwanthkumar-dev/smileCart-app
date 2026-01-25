@@ -33,7 +33,7 @@ const CategoryProduct = () => {
 
   const handleAddToCart = async (productId) => {
     try {
-      const response = await addToCart(productId, 1);
+       await addToCart(productId, 1);
     } catch (error) {
       console.error("Cart error:", error);
     }

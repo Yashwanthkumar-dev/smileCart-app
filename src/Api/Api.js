@@ -1,6 +1,7 @@
 import axios from "axios";
 const BASEURL = "http://localhost:8080/api/v1";
 const AuthURL = "http://localhost:8080/authentication";
+const ADMINURL = "http://localhost:8080/api/admin";
 // ---------------------------------------------- product ---------------------------
 // get all product
 export const getAllProducts = async () => {
@@ -45,8 +46,8 @@ export const allCartProducts = async () => {
   try {
     const res = await axios.get(`${BASEURL}/cart`, {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
     return res.data;
   } catch (error) {
@@ -60,10 +61,12 @@ export const deleteCartById = async (cartId) => {
   const token = localStorage.getItem("token");
   try {
     const res = await axios.delete(`${BASEURL}/cart/delete/${cartId}`, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     });
     return res.data;
-  } catch (error) { throw error; }
+  } catch (error) {
+    throw error;
+  }
 };
 
 // delete all carts
@@ -71,10 +74,12 @@ export const deleteAllCarts = async () => {
   const token = localStorage.getItem("token");
   try {
     const res = await axios.delete(`${BASEURL}/cart`, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     });
     return res;
-  } catch (error) { throw error; }
+  } catch (error) {
+    throw error;
+  }
 };
 // --------------------------------------------------- category --------------------------
 
@@ -107,6 +112,7 @@ export const login = async (LoginData) => {
     const res = await axios.post(`${AuthURL}/login`, LoginData);
     if (res.data.token) {
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("role", res.data.role);
       console.log("Token store aayiduchi macha!");
     }
     return res.data;
@@ -127,26 +133,44 @@ export const registration = async (userData) => {
   }
 };
 
-
 // ----------------------------------- order page --------------------------
 export const placeOrder = async () => {
-    const token = localStorage.getItem("token");
-    try {
-        const response = await axios.post(`${BASEURL}/order/place`, {}, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
+  const token = localStorage.getItem("token");
+  try {
+    const response = await axios.post(
+      `${BASEURL}/order/place`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
-
 export const getMyOrders = async () => {
-    const res = await axios.get(`${BASEURL}/order/my-orders`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+  const res = await axios.get(`${BASEURL}/order/my-orders`, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  });
+  return res.data;
+};
+
+// ----------------------------------- Admin page ------------------------
+export const adminDashboard = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const res = await axios.get(`${ADMINURL}/dashboard/stats`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     return res.data;
+  } catch (error) {
+    throw error;
+  }
 };

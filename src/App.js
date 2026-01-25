@@ -1,9 +1,6 @@
 import HomePage from "./Pages/HomePage";
-import Footer from "./Components/Footer";
-import { Route, Routes } from "react-router-dom";
-import About from "./Pages/About";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Contact from "./Pages/Contact";
-import Workflow from "./Components/Workflow";
 import PoductPage from "./Pages/PoductPage";
 import CategoryProduct from "./Pages/CategoryProduct";
 import CartPage from "./Pages/CartPage";
@@ -13,26 +10,48 @@ import LoginPage from "./Pages/LoginPage";
 import RegistrationPage from "./Pages/RegistrationPage";
 import OrderPage from "./Pages/OrderPage";
 
+import SideBar from "./Components/SideBar";
+import About from "./Pages/About";
+import AdminDashboard from "./AdminPage/AdminDashboard";
+
 const App = () => {
+  const location = useLocation();
+  const isAdminPage = location.pathname.startsWith("/admin");
   return (
     <>
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/registration" element={<RegistrationPage />} />
-        <Route element={<MainLayout />}>
-          <Route path="/home-page" element={<HomePage />} />
-          <Route path="/about-us" element={<About />} />
-          <Route path="/contact-us" element={<Contact />} />
-          <Route path="/Workflow" element={<Workflow />} />
-          <Route path="/all-products" element={<PoductPage />} />
-          <Route path="/my-orders" element={<OrderPage />} />
-          <Route
-            path="/category-product/:categoryId"
-            element={<CategoryProduct />}
-          />
-          <Route path="/cart-details" element={<CartPage />} />
-        </Route>
-      </Routes>
+      <div className="flex">
+        {isAdminPage && <SideBar />}
+        <div className={isAdminPage ? "flex-1 ml-[16.66%]" : "w-full"}>
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/registration" element={<RegistrationPage />} />
+
+            <Route element={<MainLayout />}>
+              <Route path="/home-page" element={<HomePage />} />
+              <Route path="/about-us" element={<About />} />
+              <Route path="/contact-us" element={<Contact />} />
+              <Route path="/all-products" element={<PoductPage />} />
+              <Route path="/my-orders" element={<OrderPage />} />
+              <Route
+                path="/category-product/:categoryId"
+                element={<CategoryProduct />}
+              />
+              <Route path="/cart-details" element={<CartPage />} />
+            </Route>
+
+            <Route path="/admin/AdminDashboard" element={<AdminDashboard />} />
+            <Route path="/admin/product" element={<h1>Product List Page</h1>} />
+            <Route
+              path="/admin/product/order"
+              element={<h1>Order Management</h1>}
+            />
+            <Route
+              path="/admin/product/user"
+              element={<h1>User Management</h1>}
+            />
+          </Routes>
+        </div>
+      </div>
     </>
   );
 };
