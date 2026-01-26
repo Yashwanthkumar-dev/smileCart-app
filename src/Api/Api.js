@@ -152,6 +152,18 @@ export const placeOrder = async () => {
   }
 };
 
+export const getAllOrder = async () => {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await axios.get(`${ADMINURL}/all-orders`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.log("error message " + error);
+  }
+};
+
 export const getMyOrders = async () => {
   const res = await axios.get(`${BASEURL}/order/my-orders`, {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -164,7 +176,7 @@ export const adminDashboard = async () => {
   try {
     const token = localStorage.getItem("token");
 
-    const res = await axios.get(`${ADMINURL}/dashboard/stats`, {
+    const res = await axios.get(`${ADMINURL}/dashboard-stats`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
