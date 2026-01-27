@@ -32,7 +32,7 @@ const RecentOrder = () => {
         </div>
 
         <div className="overflow-x-auto">
-          {/* text-left inga mukkiyam macha alignment-ku */}
+          
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-green-700 text-white uppercase text-[15px]

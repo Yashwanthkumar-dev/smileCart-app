@@ -88,7 +88,7 @@ const AdminDashboard = () => {
               key={index}
               className="text-center px-5 py-3 bg-green-200/20 shadow-md"
             >
-              <div className="flex items-center gap-x-8">
+              <div className="flex items-center gap-x-8 ">
                 <i className=" text-green-600">{datas.icon}</i>
                 <h1 className="font-mono font-semibold tracking-wide text-green-700 text-[20px]">
                   {datas.name}

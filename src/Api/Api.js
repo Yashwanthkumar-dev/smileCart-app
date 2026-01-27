@@ -186,3 +186,13 @@ export const adminDashboard = async () => {
     throw error;
   }
 };
+
+export const adminProductList = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.post(`${ADMINURL}/all-products`);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
