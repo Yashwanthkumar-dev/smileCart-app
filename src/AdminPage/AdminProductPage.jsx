@@ -1,6 +1,7 @@
 import { Package2Icon, Search } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getAllProducts } from "../Api/Api";
+import { adminProductList, deleteProductById } from "../Api/Api";
+import { Link } from "react-router-dom";
 
 function AdminProductPage() {
   const [allProduct, setAllProduct] = useState([]);
@@ -10,7 +11,7 @@ function AdminProductPage() {
   useEffect(() => {
     const fetchProductList = async () => {
       try {
-        const product = await getAllProducts();
+        const product = await adminProductList();
         setAllProduct(product);
         setError(false);
       } catch (error) {
@@ -21,13 +22,39 @@ function AdminProductPage() {
     fetchProductList();
   }, []);
 
+  const fetchProductDeleteDataById = async (productId) => {
+    try {
+      await deleteProductById(productId);
+      setAllProduct((prev) => prev.filter((p) => p.id !== productId));
+      console.log("success message : product was deleted successfully");
+      // window.location.reload();
+    } catch (error) {
+      console.log("error message :", error);
+    }
+  };
+
+  if (fetchProductDeleteDataById) {
+    return (
+      <div>
+        <h1 className="text-red text-3xl text-center">product was deleted suucessfully </h1>
+      </div>
+    );
+  }
+
   const filterProduct = allProduct.filter((pro) => {
     return (
       pro.productName.toLowerCase().includes(search.toLowerCase()) ||
       pro.productDescription.toLowerCase().includes(search.toLowerCase())
     );
   });
-
+  const deleteAllProduct = async () => {
+    try {
+      await deleteAllProduct();
+      console.log("All product are deleted successfully");
+    } catch (error) {
+      console.log("error message :", error);
+    }
+  };
   if (error) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -56,11 +83,22 @@ function AdminProductPage() {
         </div>
 
         <div className="flex gap-3">
-          <button className="bg-amber-600 text-white px-5 py-2 rounded-md border-2 border-amber-600 font-medium hover:bg-white hover:text-amber-900 transition duration-300">
+          <Link
+            to="/admin/add"
+            className="bg-amber-600 text-white px-5 py-2 rounded-md border-2 border-amber-600 font-medium hover:bg-white hover:text-amber-900 transition duration-300"
+          >
             Add Product
-          </button>
+          </Link>
           <button className="bg-transparent text-orange-900 border-2 border-orange-900 px-5 py-2 rounded-md font-medium hover:bg-orange-900 hover:text-white transition duration-300">
             Edit Product
+          </button>
+
+          <button
+            onClick={() => deleteAllProduct()}
+            className="rounded-lg px-5 py-2 bg-red-600 font-poppins font-medium text-white capitalize tracking-wide border-transparent border-2
+            hover:border-red-600 hover:text-red-600 transition duration-500 hover:bg-transparent"
+          >
+            delete All
           </button>
         </div>
       </div>
@@ -90,6 +128,7 @@ function AdminProductPage() {
               <th className="p-4 font-semibold">Name</th>
               <th className="p-4 font-semibold">Description</th>
               <th className="p-4 font-semibold">Price</th>
+              <th className="p-4 font-semibold">Action</th>
             </tr>
           </thead>
 
@@ -116,6 +155,14 @@ function AdminProductPage() {
                   </td>
                   <td className="p-4 font-semibold text-gray-700">
                     ₹{pro.productPrice}
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => fetchProductDeleteDataById(pro.id)}
+                      className="px-4 py-2 bg-red-500 font-poppins font-medium capitalize text-white rounded-lg"
+                    >
+                      remove
+                    </button>
                   </td>
                 </tr>
               ))

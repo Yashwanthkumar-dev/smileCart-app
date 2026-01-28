@@ -12,6 +12,43 @@ export const getAllProducts = async () => {
     throw error;
   }
 };
+
+// delete product using id
+
+export const deleteProductById = async (productId) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.delete(
+      `${BASEURL}/product/delete-id/${productId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return res.data;
+  } catch (error) {
+    console.log("error message :", error);
+    throw error;
+  }
+};
+
+// delete all product
+export const deleteAllProduct = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.delete(`${BASEURL}/product`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log("error message :", error);
+    throw error;
+  }
+};
 //  --------------------------------------------- Cart -------------------------------
 // add to cart api
 export const addToCart = async (productId, quantity) => {
@@ -134,6 +171,7 @@ export const registration = async (userData) => {
 };
 
 // ----------------------------------- order page --------------------------
+// place order
 export const placeOrder = async () => {
   const token = localStorage.getItem("token");
   try {
@@ -151,7 +189,7 @@ export const placeOrder = async () => {
     throw error;
   }
 };
-
+// get all order details
 export const getAllOrder = async () => {
   const token = localStorage.getItem("token");
   try {
@@ -163,7 +201,7 @@ export const getAllOrder = async () => {
     console.log("error message " + error);
   }
 };
-
+// get single user order details
 export const getMyOrders = async () => {
   const res = await axios.get(`${BASEURL}/order/my-orders`, {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -190,9 +228,29 @@ export const adminDashboard = async () => {
 export const adminProductList = async () => {
   try {
     const token = localStorage.getItem("token");
-    const res = await axios.post(`${ADMINURL}/all-products`);
+    const res = await axios.get(`${ADMINURL}/all-products`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return res.data;
   } catch (error) {
+    throw error;
+  }
+};
+
+export const adminAddAllProducts = async (formData) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.post(`${BASEURL}/product`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log("error message from backend :", error);
     throw error;
   }
 };
