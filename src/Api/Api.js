@@ -49,6 +49,23 @@ export const deleteAllProduct = async () => {
     throw error;
   }
 };
+
+//
+export const UpdateProduct = async (updateFormData) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.put(`${BASEURL}/product`, updateFormData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return res;
+  } catch (error) {
+    console.log("error message :", error);
+    throw error;
+  }
+};
 //  --------------------------------------------- Cart -------------------------------
 // add to cart api
 export const addToCart = async (productId, quantity) => {
@@ -251,6 +268,72 @@ export const adminAddAllProducts = async (formData) => {
     return res.data;
   } catch (error) {
     console.log("error message from backend :", error);
+    throw error;
+  }
+};
+
+// ----------------------------------------- User Api ------------------------
+//
+// get all user
+export const getAllUser = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.get(`${BASEURL}/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log("error message :", error);
+    throw error;
+  }
+};
+// get total user count
+export const getTotalUserCount = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.get(`${ADMINURL}/total-user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log("error message :", error);
+    throw error;
+  }
+};
+
+// delete user by id
+export const deleteUserById = async (email) => {
+  try {
+    console.log("Deleting User with ID:", email);
+    const token = localStorage.getItem("token");
+    const res = await axios.delete(`${BASEURL}/user/email/${email}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log("error message :", error);
+    throw error;
+  }
+};
+
+// delete all user
+export const deleteAllUser = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.delete(`${BASEURL}/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log("error message :", error);
     throw error;
   }
 };

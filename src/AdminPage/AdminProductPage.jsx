@@ -33,10 +33,12 @@ function AdminProductPage() {
     }
   };
 
-  if (fetchProductDeleteDataById) {
+  if (fetchProductDeleteDataById.length === 0) {
     return (
       <div>
-        <h1 className="text-red text-3xl text-center">product was deleted suucessfully </h1>
+        <h1 className="text-red text-3xl text-center">
+          product was deleted suucessfully{" "}
+        </h1>
       </div>
     );
   }
@@ -89,9 +91,12 @@ function AdminProductPage() {
           >
             Add Product
           </Link>
-          <button className="bg-transparent text-orange-900 border-2 border-orange-900 px-5 py-2 rounded-md font-medium hover:bg-orange-900 hover:text-white transition duration-300">
+          <Link
+            to="/admin/update"
+            className="bg-transparent text-orange-900 border-2 border-orange-900 px-5 py-2 rounded-md font-medium hover:bg-orange-900 hover:text-white transition duration-300"
+          >
             Edit Product
-          </button>
+          </Link>
 
           <button
             onClick={() => deleteAllProduct()}

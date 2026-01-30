@@ -1,7 +1,7 @@
 import {
   LayoutDashboard,
   ShoppingBag,
-  ClipboardList,
+  // ClipboardList,
   User,
   LogOut,
 } from "lucide-react";
@@ -21,15 +21,15 @@ function SideBar() {
       icon: <ShoppingBag size={20} />,
       path: "/admin/product",
     },
-    {
-      name: "order",
-      icon: <ClipboardList size={20} />,
-      path: "/admin/product/order",
-    },
+    // {
+    //   name: "order",
+    //   icon: <ClipboardList size={20} />,
+    //   path: "/admin/product/order",
+    // },
     {
       name: "user",
       icon: <User size={20} />,
-      path: "/admin/product/user",
+      path: "/admin/user",
     },
   ];
   return (

@@ -15,6 +15,8 @@ import About from "./Pages/About";
 import AdminDashboard from "./AdminPage/AdminDashboard";
 import AdminProductPage from "./AdminPage/AdminProductPage";
 import AdminAddProduct from "./AdminPage/AdminAddProduct";
+import AdminUpdateProduct from "./AdminPage/AdminUploadProduct";
+import AdminUserPage from "./AdminPage/AdminUserPage";
 
 const App = () => {
   const location = useLocation();
@@ -47,15 +49,9 @@ const App = () => {
                 element={<AdminDashboard />}
               />
               <Route path="/admin/product" element={<AdminProductPage />} />
-              <Route
-                path="/admin/product/order"
-                element={<h1>Order Management</h1>}
-              />
-              <Route
-                path="/admin/product/user"
-                element={<h1>User Management</h1>}
-              />
 
+              <Route path="/admin/user" element={<AdminUserPage />} />
+              <Route path="/admin/update" element={<AdminUpdateProduct />} />
               <Route path="/admin/add" element={<AdminAddProduct />} />
             </Routes>
           </div>
