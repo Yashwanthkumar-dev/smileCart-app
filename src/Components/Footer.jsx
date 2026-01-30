@@ -84,7 +84,7 @@ const Footer = () => {
                     How it Works
                   </li>
                 </a>
-                <Link to="/contact">
+                <Link to="/contact-us">
                   <li className=" capitalize font-poppins font-light text-white/65 text-[16px]">
                     Contact
                   </li>

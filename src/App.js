@@ -4,12 +4,10 @@ import Contact from "./Pages/Contact";
 import PoductPage from "./Pages/PoductPage";
 import CategoryProduct from "./Pages/CategoryProduct";
 import CartPage from "./Pages/CartPage";
-
 import MainLayout from "./Components/Main";
 import LoginPage from "./Pages/LoginPage";
 import RegistrationPage from "./Pages/RegistrationPage";
 import OrderPage from "./Pages/OrderPage";
-
 import SideBar from "./Components/SideBar";
 import About from "./Pages/About";
 import AdminDashboard from "./AdminPage/AdminDashboard";

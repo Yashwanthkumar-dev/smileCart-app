@@ -35,7 +35,7 @@ const Navigation = () => {
               >
                 <Link
                   to="/about-us"
-                  className="font-medium font-poppins text-lg hover:text-green-500"
+                  className="font-medium font-poppins text-lg hover:text-green-500 about"
                 >
                   about us
                 </Link>
@@ -48,9 +48,21 @@ const Navigation = () => {
               >
                 <Link
                   to="/all-products"
-                  className="font-medium font-poppins text-lg hover:text-green-500"
+                  className="font-medium font-poppins text-lg hover:text-green-500 products"
                 >
                   products
+                </Link>
+              </motion.li>
+              <motion.li
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <Link
+                  to="/contact-us"
+                  className="font-medium font-poppins text-lg hover:text-green-500 contact"
+                >
+                  contact-us
                 </Link>
               </motion.li>
 
@@ -80,7 +92,6 @@ const Navigation = () => {
                 </Link>
               </motion.li>
 
-              {/* 2. Logout Button added here */}
               <motion.li
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}

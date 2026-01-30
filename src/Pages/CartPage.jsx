@@ -16,7 +16,9 @@ function CartPage() {
       const res = await placeOrder();
       if (res.status === 201 || res.status === 200) {
         alert("order have been placed successfully");
-        window.location.reload();
+        setTimeout(function() {
+            window.location.reload();
+        },0);
       }
     } catch (error) {
       alert("order was not placed ");
