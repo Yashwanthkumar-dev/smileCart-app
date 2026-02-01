@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import productData from "../Data/ProductData";
+// import productData from "../Data/ProductData";
 import { motion } from "framer-motion";
 import { getAllProducts } from "../Api/Api";
 const Tranding = () => {
@@ -11,7 +11,7 @@ const Tranding = () => {
 
         setProduct(product);
       } catch (error) {
-        throw new error;
+        throw  error;
       }
     };
     fetchData();
