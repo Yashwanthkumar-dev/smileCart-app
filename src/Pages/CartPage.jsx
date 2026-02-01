@@ -13,26 +13,27 @@ function CartPage() {
   }, 0);
   const handlePlaceOrder = async () => {
     try {
+      
       const res = await placeOrder();
-      if (res.status === 201 || res.status === 200) {
-        alert("order have been placed successfully");
-        setTimeout(function() {
-            window.location.reload();
-        },0);
-      }
+      console.log(res);
+      alert("order have been placed successfully");
+      fetchCart();
+     
     } catch (error) {
       alert("order was not placed ");
     }
   };
+  
+  const fetchCart = async () => {
+    const carts = await allCartProducts();
+    console.log(carts);
+    const filterCarts = carts.filter((c) => c.product !== null);
+    setAllCart(filterCarts);
+  };
 
   useEffect(() => {
     try {
-      const fetchCart = async () => {
-        const carts = await allCartProducts();
-        console.log(carts);
-        const filterCarts = carts.filter((c) => c.product !== null);
-        setAllCart(filterCarts);
-      };
+     
       fetchCart();
     } catch (error) {
       alert(error);

@@ -1,7 +1,12 @@
 import axios from "axios";
-const BASEURL = "http://localhost:8080/api/v1";
-const AuthURL = "http://localhost:8080/authentication";
-const ADMINURL = "http://localhost:8080/api/admin";
+
+const BASE_RENDER_URL = "https://smilecart-backend.onrender.com";
+
+const BASEURL = `${BASE_RENDER_URL}/api/v1`;
+const AuthURL = `${BASE_RENDER_URL}/authentication`;
+const ADMINURL = `${BASE_RENDER_URL}/api/admin`;
+
+
 // ---------------------------------------------- product ---------------------------
 // get all product
 export const getAllProducts = async () => {
