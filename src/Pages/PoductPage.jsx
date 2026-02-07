@@ -70,7 +70,7 @@ const PoductPage = () => {
                     try {
                       const product = items.id;
                       const quantity = 1;
-                      const res = await addToCart(product, quantity);
+                      await addToCart(product, quantity);
                     } catch (error) {
                       alert("Failed to add product");
                     }
