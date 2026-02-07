@@ -1,10 +1,9 @@
 import axios from "axios";
 
-const BASE_RENDER_URL = "https://smilecart-backend.onrender.com";
-
-const BASEURL = `${BASE_RENDER_URL}/api/v1`;
-const AuthURL = `${BASE_RENDER_URL}/authentication`;
-const ADMINURL = `${BASE_RENDER_URL}/api/admin`;
+const BASE_HUGGING_FACE_URL = "https://yashwanth-dev-smilecart-backend.hf.space";
+const BASEURL = `${BASE_HUGGING_FACE_URL}/api/v1`;
+const AuthURL = `${BASE_HUGGING_FACE_URL}/authentication`;
+const ADMINURL = `${BASE_HUGGING_FACE_URL}/api/admin`;
 
 
 // ---------------------------------------------- product ---------------------------
